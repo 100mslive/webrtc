@@ -1,6 +1,8 @@
 # webrtc [![](https://jitpack.io/v/100mslive/webrtc.svg)](https://jitpack.io/#100mslive/webrtc)
 Just a holding repo for the artefacts of webrtc builds.
 
+Why's the version name so long? It's taken from [call/versions.cc](https://chromium.googlesource.com/external/webrtc/+/refs/heads/master/call/version.cc#16) in the WebRTC source. They version by date.
+
 The artefacts are built from https://webrtc.github.io/webrtc-org/native-code/android/ and named according to their versions in the format
 libwebrtc-{platform}-{version}.aar
 
