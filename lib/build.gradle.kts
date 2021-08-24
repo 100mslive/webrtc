@@ -12,7 +12,7 @@ plugins {
     `maven-publish`
 }
 
-group = "live.hms"
+group = "com.github.100mslive"
 version = "pre-alpha"
 
 repositories {
@@ -28,7 +28,7 @@ dependencies {
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            groupId = "live.hms.video"
+            groupId = "com.github.100mslive"
             artifactId = "webrtc"
             version = "pre-alpha"
 
