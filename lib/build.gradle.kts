@@ -27,12 +27,24 @@ dependencies {
 
 publishing {
     publications {
-        create<MavenPublication>("maven") {
+        create<MavenPublication>("release") {
             groupId = "com.github.100mslive"
             artifactId = "webrtc"
-            version = "pre-alpha"
+            version = "WebRTC-source-stamp-2021-08-20T04_05_25"
 
             artifact("../libwebrtc.aar")
+    
+            pom {
+                name.set("WebRTC")
+                description.set("A packaging of the webrtc library")
+                url.set("https://webrtc.github.io/webrtc-org/native-code/android/")
+                licenses {
+                    license {
+                        name.set("WebRTC Licence")
+                        url.set("https://webrtc.github.io/webrtc-org/license/")
+                    }
+                }
+            }
         }
     }
 }
