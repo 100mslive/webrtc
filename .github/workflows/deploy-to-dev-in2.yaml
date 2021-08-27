@@ -1,0 +1,58 @@
+name: Deploy to dev-in2
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - development
+      - ravi-test
+    paths-ignore:
+      - 'kube/values.yaml'
+      - 'client/*'
+      - 'scripts/*'
+      - 'config/*'
+      - 'proto/*'
+      - '.dockerignore'
+      - '.gitignore'
+      - 'docker-compose.yml'
+      - 'LICENSE'
+      - 'README.md'
+       
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    env:
+      ENV: dev
+      VAULT_PREFIX: in2
+      DEPLOYMENT_NAME: sfu
+      RELEASE_NAME: hmssfu0
+      GCP_PROJECT_ID: dev-in2
+      GCP_REGION: asia-south1
+      GCP_NAMESPACE: ion2
+      GCP_CLUSTER: dev-in2
+      DOCKER_GIT_TOKEN: ${{ secrets.DOCKER_GIT_TOKEN }}
+      
+    steps:
+
+    - name: Set up Repo Cloud SDK
+      uses: google-github-actions/setup-gcloud@master
+      with:
+        project_id: ${{ env.GCP_PROJECT_ID }}
+        service_account_key: ${{ secrets.GKE_SA_KEY }}
+        export_default_credentials: true
+        
+    - name: install yq 
+      id: install-yq
+      run: |
+        wget https://github.com/mikefarah/yq/releases/download/v4.5.0/yq_linux_amd64
+        chmod +x yq_linux_amd64
+        sudo mv yq_linux_amd64 /usr/local/bin/yq
+        yq -V
+
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+       # ref: ${{ github.event.pull_request.head.ref }}
+        fetch-depth: 0
+        token: ${{ secrets.DOCKER_GIT_TOKEN }}
