@@ -40,6 +40,6 @@ jobs:
       run: |
         git clone https://chromium.googlesource.com/chromium/tools/depot_tools
         pwd
-        export PATH=$(pwd):$PATH
+        export PATH=$(pwd)/depot_tools:$PATH
         echo $PATH 
         fetch android
