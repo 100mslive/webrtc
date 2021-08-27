@@ -39,3 +39,7 @@ jobs:
       id: install-yq
       run: |
         git clone https://chromium.googlesource.com/chromium/tools/depot_tools
+        pwd
+        export PATH=$PATH:$(pwd)
+        echo $PATH 
+        fetch android
