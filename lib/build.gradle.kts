@@ -30,13 +30,13 @@ publishing {
         create<MavenPublication>("release") {
             groupId = "com.github.100mslive"
             artifactId = "webrtc"
-            version = "WebRTC-source-stamp-2021-08-20T04_05_25"
+            version = "m92-4515"
 
             artifact("../libwebrtc.aar")
     
             pom {
                 name.set("WebRTC")
-                description.set("A packaging of the webrtc library")
+                description.set("A packaging of the webrtc library. Branch-heads/4515")
                 url.set("https://webrtc.github.io/webrtc-org/native-code/android/")
                 licenses {
                     license {
