@@ -13,7 +13,7 @@ plugins {
 }
 
 group = "com.github.100mslive"
-version = "pre-alpha"
+version = "m92-4515"
 
 repositories {
     // Use Maven Central for resolving dependencies.
