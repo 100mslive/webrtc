@@ -38,6 +38,7 @@ jobs:
     - name: install yq 
       id: install-yq
       run: |
+        df -kh
         git clone https://chromium.googlesource.com/chromium/tools/depot_tools
         pwd
         export PATH=$(pwd)/depot_tools:$PATH
