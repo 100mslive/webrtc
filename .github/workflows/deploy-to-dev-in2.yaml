@@ -59,6 +59,7 @@ jobs:
       run: |
          pwd 
          ls
+         cd webrtc
          gclient sync --with_branch_heads --with_tags
          git fetch
          git checkout refs/remotes/branch-heads/ravi-test
