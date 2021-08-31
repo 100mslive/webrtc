@@ -55,7 +55,7 @@ jobs:
     - name: build
       id: build-branch
       run: |
-         cd webrtc
+         pwd 
          ls
          gclient sync --with_branch_heads --with_tags
          git fetch
