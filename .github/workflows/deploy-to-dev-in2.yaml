@@ -43,9 +43,9 @@ jobs:
         pwd
         export PATH=$(pwd)/depot_tools:$PATH
         echo $PATH 
-        fetch android
+        #fetch android
         ls -al
-        
+
     - name: Checkout
       uses: actions/checkout@v2
       with:
