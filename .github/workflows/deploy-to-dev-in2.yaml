@@ -61,3 +61,6 @@ jobs:
          git fetch
          git checkout refs/remotes/branch-heads/ravi-test
          gclient sync --with_branch_heads --with_tags 
+    
+    - uses: colpal/actions-clean@v1
+      if: ${{ always() }} 
