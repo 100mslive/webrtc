@@ -35,12 +35,29 @@ jobs:
       
     steps:
         
-    - name: install yq 
-      id: install-yq
+    - name: prep-steps 
+      id: prep-steps
       run: |
         df -kh
         git clone https://chromium.googlesource.com/chromium/tools/depot_tools
         pwd
         export PATH=$(pwd)/depot_tools:$PATH
         echo $PATH 
-        fetch android
+        #fetch android
+        
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+       # ref: ${{ github.event.pull_request.head.ref }}
+        fetch-depth: 0
+        token: ${{ secrets.DOCKER_GIT_TOKEN }} 
+    
+    - name: build
+      id: build-branch
+      run: |
+         cd webrtc
+         ls
+         gclient sync --with_branch_heads --with_tags
+         git fetch
+         git checkout refs/remotes/branch-heads/ravi-test
+         gclient sync --with_branch_heads --with_tags 
