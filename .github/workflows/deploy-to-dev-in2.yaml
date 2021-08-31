@@ -34,19 +34,12 @@ jobs:
       DOCKER_GIT_TOKEN: ${{ secrets.DOCKER_GIT_TOKEN }}
       
     steps:
-    
-    - name: Checkout
-      uses: actions/checkout@v2
-      with:
-       # ref: ${{ github.event.pull_request.head.ref }}
-        fetch-depth: 0
-        token: ${{ secrets.DOCKER_GIT_TOKEN }} 
-        path: webrtc
-    
+        
     - name: prep-steps 
       id: prep-steps
       run: |
-        cd webrtc
+        python3 -v 
+        df -kh
         git clone https://chromium.googlesource.com/chromium/tools/depot_tools
         pwd
         export PATH=$(pwd)/depot_tools:$PATH
@@ -54,9 +47,14 @@ jobs:
         fetch android
         ls -al
         gclient sync --with_branch_heads --with_tags
+        cd src  
         git fetch
-        git checkout refs/remotes/branch-heads/ravi-test
+        git checkout refs/remotes/branch-heads/4515
         gclient sync --with_branch_heads --with_tags 
-    
-    - uses: colpal/actions-clean@v1
-      if: ${{ always() }} 
+        ./build/android/envsetup.sh
+        python3 ./tools_webrtc/android/build_aar.py || exit 0
+        ls -alR
+        
+
+#    - uses: colpal/actions-clean@v1
+#      if: ${{ always() }} 
