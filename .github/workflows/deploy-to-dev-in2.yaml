@@ -32,7 +32,7 @@ jobs:
       GCP_NAMESPACE: ion2
       GCP_CLUSTER: dev-in2
       DOCKER_GIT_TOKEN: ${{ secrets.DOCKER_GIT_TOKEN }}
-      ANDROID_SDK_ROOT: ${{ $GITHUB_WORKSPACE }}/webrtc_checkout/src/third_party/android_sdk/public/
+      ANDROID_SDK_ROOT: ${{ GITHUB_WORKSPACE }}/webrtc_checkout/src/third_party/android_sdk/public/
       ANDROID_HOME: ${{ GITHUB_WORKSPACE }}/webrtc_checkout/src/third_party/android_sdk/public/
       
     steps:
