@@ -48,7 +48,7 @@ jobs:
         echo "$INITIAL_RUN_DIRECTORY"
 
     - name: get depot tools
-      id: get depot tools
+      id: get-depot-tools
       run: |
         python3 -v 
         df -kh
