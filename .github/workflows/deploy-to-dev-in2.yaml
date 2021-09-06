@@ -37,7 +37,6 @@ jobs:
 
     - name: set environment optimistically
       run: |
-        echo "${{ GITHUB_WORKSPACE }}"
         echo "$(pwd)/webrtc_checkout/src/third_party/android_sdk/public/platform-tools" >> $GITHUB_PATH
         echo "$(pwd)/webrtc_checkout/src/third_party/android_sdk/public/tools/" >> $GITHUB_PATH
         echo "$(pwd)/webrtc_checkout/src/build/android" >> $GITHUB_PATH
