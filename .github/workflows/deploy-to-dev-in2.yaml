@@ -46,16 +46,16 @@ jobs:
         echo $ANDROID_HOME
         echo "$INITIAL_RUN_DIRECTORY"
 
-    - name: prep-steps 
-      id: prep-steps
-      run: |
-        python3 -v 
-        df -kh
-        git clone https://chromium.googlesource.com/chromium/tools/depot_tools
-        pwd
-        export PATH=$(pwd)/depot_tools:$PATH
-        echo $PATH
-        mkdir webrtc_checkout
+#     - name: prep-steps 
+#       id: prep-steps
+#       run: |
+#         python3 -v 
+#         df -kh
+#         git clone https://chromium.googlesource.com/chromium/tools/depot_tools
+#         pwd
+#         export PATH=$(pwd)/depot_tools:$PATH
+#         echo $PATH
+#         mkdir webrtc_checkout
 
     - name: clone 
       id: clone
