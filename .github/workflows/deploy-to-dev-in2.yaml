@@ -50,10 +50,8 @@ jobs:
     - name: get depot tools
       id: get-depot-tools
       run: |
-        python3 -v 
-        df -kh
-        git clone https://chromium.googlesource.com/chromium/tools/depot_tools
         mkdir webrtc_checkout
+
 
     - name: clone 
       id: clone
