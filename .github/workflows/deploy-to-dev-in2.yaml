@@ -16,7 +16,11 @@ on:
       - 'docker-compose.yml'
       - 'LICENSE'
       - 'README.md'
-       
+
+env:
+  ANDROID_SDK_ROOT: "${{ GITHUB_WORKSPACE }}/webrtc_checkout/src/third_party/android_sdk/public/"
+  ANDROID_HOME: "${{ GITHUB_WORKSPACE }}/webrtc_checkout/src/third_party/android_sdk/public/"
+  
 jobs:
   deploy:
     name: Deploy
@@ -37,11 +41,9 @@ jobs:
 
     - name: set environment optimistically
       run: |
-        echo "ANDROID_SDK_ROOT=${{ GITHUB_WORKSPACE }}/webrtc_checkout/src/third_party/android_sdk/public/" >> $GITHUB_ENV
-        echo "ANDROID_HOME=${{ GITHUB_WORKSPACE }}/webrtc_checkout/src/third_party/android_sdk/public/" >> $GITHUB_ENV
-        echo "${{ GITHUB_WORKSPACE }}/webrtc_checkout/src/third_party/android_sdk/public/platform-tools" >> $GITHUB_PATH
-        echo "${{ GITHUB_WORKSPACE }}/webrtc_checkout/src/third_party/android_sdk/public/tools/" >> $GITHUB_PATH
-        echo "${{ GITHUB_WORKSPACE }}/webrtc_checkout/src/build/android" >> $GITHUB_PATH
+        echo "$(pwd)/webrtc_checkout/src/third_party/android_sdk/public/platform-tools" >> $GITHUB_PATH
+        echo "$(pwd)/webrtc_checkout/src/third_party/android_sdk/public/tools/" >> $GITHUB_PATH
+        echo "$(pwd)/webrtc_checkout/src/build/android" >> $GITHUB_PATH
 
     - name: prep-steps 
       id: prep-steps
