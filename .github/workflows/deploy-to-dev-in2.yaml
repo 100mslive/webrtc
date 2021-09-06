@@ -41,8 +41,9 @@ jobs:
         echo "$(pwd)/webrtc_checkout/src/third_party/android_sdk/public/platform-tools" >> $GITHUB_PATH
         echo "$(pwd)/webrtc_checkout/src/third_party/android_sdk/public/tools/" >> $GITHUB_PATH
         echo "$(pwd)/webrtc_checkout/src/build/android" >> $GITHUB_PATH
-        echo "ANDROID_SDK_ROOT=$GITHUB_WORKSPACE/webrtc_checkout/src/third_party/android_sdk/public/" >> $GITHUB_PATH
-        echo "ANDROID_HOME=$GITHUB_WORKSPACE/webrtc_checkout/src/third_party/android_sdk/public/" >> $GITHUB_PATH
+        echo "ANDROID_SDK_ROOT=$(pwd)/webrtc_checkout/src/third_party/android_sdk/public/" >> $GITHUB_PATH
+        echo "ANDROID_HOME=$(pwd)/webrtc_checkout/src/third_party/android_sdk/public/" >> $GITHUB_PATH
+        echo $ANDROID_HOME
 
     - name: prep-steps 
       id: prep-steps
