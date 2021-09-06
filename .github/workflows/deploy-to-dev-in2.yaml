@@ -52,7 +52,7 @@ jobs:
         python3 -v 
         df -kh
         git clone https://chromium.googlesource.com/chromium/tools/depot_tools
-        echo "(pwd)/depot_tools" >> $GITHUB_PATH
+        echo "$(pwd)/depot_tools" >> $GITHUB_PATH
         mkdir webrtc_checkout
 
 
