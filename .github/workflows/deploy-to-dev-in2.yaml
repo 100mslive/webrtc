@@ -43,13 +43,16 @@ jobs:
         echo "ANDROID_SDK_ROOT=$(pwd)/webrtc_checkout/src/third_party/android_sdk/public/" >> $GITHUB_PATH
         echo "ANDROID_HOME=$(pwd)/webrtc_checkout/src/third_party/android_sdk/public/" >> $GITHUB_PATH
         echo "INITIAL_RUN_DIRECTORY=$(pwd)" >> $GITHUB_PATH
-        echo "(pwd)/depot_tools" >> $GITHUB_PATH
         echo $ANDROID_HOME
         echo "$INITIAL_RUN_DIRECTORY"
 
     - name: get depot tools
       id: get-depot-tools
       run: |
+        python3 -v 
+        df -kh
+        git clone https://chromium.googlesource.com/chromium/tools/depot_tools
+        echo "(pwd)/depot_tools" >> $GITHUB_PATH
         mkdir webrtc_checkout
 
 
