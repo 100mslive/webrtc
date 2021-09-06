@@ -51,10 +51,7 @@ jobs:
       run: |
         python3 -v 
         df -kh
-        
         echo "$(pwd)/depot_tools" >> $GITHUB_PATH
-        mkdir webrtc_checkout
-
 
     - name: clone 
       id: clone
