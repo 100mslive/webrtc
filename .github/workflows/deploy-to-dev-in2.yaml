@@ -56,11 +56,18 @@ jobs:
         export PATH=$(pwd)/depot_tools:$PATH
         echo $PATH
         mkdir webrtc_checkout
-        cd webrtc_checkout
+
+    - name: clone 
+      id: clone
+      working-directory: ./webrtc_checkout
+      run: |
         fetch --nohooks webrtc_android
         ls -al
         gclient sync --with_branch_heads --with_tags
-        cd src  
+
+    - name: build
+      id: build
+      working-directory: ./webrtc_checkout/src
         git fetch
         git checkout refs/remotes/branch-heads/4515
         gclient sync --with_branch_heads --with_tags 
@@ -68,7 +75,7 @@ jobs:
         python3 ./tools_webrtc/android/build_aar.py || exit 0
         ls -alR
         ls -alR $INITIAL_RUN_DIRECTORY
-        
+
 
 #    - uses: colpal/actions-clean@v1
 #      if: ${{ always() }} 
