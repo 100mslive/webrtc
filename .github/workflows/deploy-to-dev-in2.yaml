@@ -18,8 +18,8 @@ on:
       - 'README.md'
 
 env:
-  ANDROID_SDK_ROOT: "${{ GITHUB_WORKSPACE }}/webrtc_checkout/src/third_party/android_sdk/public/"
-  ANDROID_HOME: "${{ GITHUB_WORKSPACE }}/webrtc_checkout/src/third_party/android_sdk/public/"
+  ANDROID_SDK_ROOT: "${{ env.GITHUB_WORKSPACE }}/webrtc_checkout/src/third_party/android_sdk/public/"
+  ANDROID_HOME: "${{ env.GITHUB_WORKSPACE }}/webrtc_checkout/src/third_party/android_sdk/public/"
   
 jobs:
   deploy:
