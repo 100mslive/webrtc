@@ -73,6 +73,17 @@ jobs:
         ls -alR
         ls -alR $INITIAL_RUN_DIRECTORY
 
+    - name: Upload a Build Artifact library
+      uses: actions/upload-artifact@v2.2.4
+      with:
+        path:
+          ./webrtc_checkout/src/libwebrtc.aar
+
+    - name: Upload a Build Artifact licence
+      uses: actions/upload-artifact@v2.2.4
+      with:
+        path:
+          ./webrtc_checkout/src/LICENCE.md
 
 #    - uses: colpal/actions-clean@v1
 #      if: ${{ always() }} 
