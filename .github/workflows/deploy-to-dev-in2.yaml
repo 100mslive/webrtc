@@ -62,7 +62,7 @@ jobs:
 #         gclient sync --with_branch_heads --with_tags
 
     - name: install dependencies
-      id: install dependencies
+      id: install_dependencies
       working-directory: ./webrtc_checkout/src
       run: |
         git fetch
