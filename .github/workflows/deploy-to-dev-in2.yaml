@@ -61,14 +61,19 @@ jobs:
 #         ls -al
 #         gclient sync --with_branch_heads --with_tags
 
-    - name: build
-      id: build
+    - name: install dependencies
+      id: install dependencies
       working-directory: ./webrtc_checkout/src
       run: |
         git fetch
         git checkout refs/remotes/branch-heads/4515
         gclient sync --with_branch_heads --with_tags 
-        
+        ./build/install-build-deps.sh        
+
+    - name: build
+      id: build
+      working-directory: ./webrtc_checkout/src
+      run: |
         python3 ./tools_webrtc/android/build_aar.py || exit 0
         ls -alR
         ls -alR $INITIAL_RUN_DIRECTORY
