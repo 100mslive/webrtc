@@ -53,13 +53,13 @@ jobs:
         df -kh
         echo "$(pwd)/depot_tools" >> $GITHUB_PATH
 
-    - name: clone 
-      id: clone
-      working-directory: ./webrtc_checkout
-      run: |
-        fetch --nohooks webrtc_android
-        ls -al
-        gclient sync --with_branch_heads --with_tags
+#     - name: clone 
+#       id: clone
+#       working-directory: ./webrtc_checkout
+#       run: |
+#         fetch --nohooks webrtc_android
+#         ls -al
+#         gclient sync --with_branch_heads --with_tags
 
     - name: build
       id: build
