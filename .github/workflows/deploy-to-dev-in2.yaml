@@ -27,8 +27,8 @@ jobs:
     steps:
     - name: Confirm inputs
       run : |
-        echo $INPUT_WEBRTCBRANCHID
-        echo "refs/remotes/branch-heads/$INPUT_WEBRTCBRANCHID"
+        echo ${{ github.event.inputs.webrtcBranchId }}
+        echo "refs/remotes/branch-heads/${{ github.event.inputs.webrtcBranchId }}"
         
     - name: set environment optimistically
       run: |
