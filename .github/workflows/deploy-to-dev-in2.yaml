@@ -69,13 +69,20 @@ jobs:
 #         ls -al
 #         gclient sync --with_branch_heads --with_tags
 
+    - name: checkout release branch
+      id: checkout_release_branch
+      working-directory: ./webrtc_checkout/src
+      run: |
+        echo "refs/remotes/branch-heads/$WEBRTC_BRANCH_ID"
+        git fetch
+        git checkout "refs/remotes/branch-heads/$WEBRTC_BRANCH_ID"
+        gclient sync -D --with_branch_heads --with_tags 
+
+
     - name: install dependencies
       id: install_dependencies
       working-directory: ./webrtc_checkout/src
       run: |
-        git fetch
-        git checkout "refs/remotes/branch-heads/$WEBRTC_BRANCH_ID"
-        gclient sync --with_branch_heads --with_tags 
         ./build/install-build-deps.sh --no-prompt
 
     - name: build
