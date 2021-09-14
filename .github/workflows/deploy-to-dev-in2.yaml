@@ -67,9 +67,9 @@ jobs:
       id: checkout_release_branch
       working-directory: ./webrtc_checkout/src
       run: |
-        echo "refs/remotes/branch-heads/$INPUT_WEBRTC_BRANCH_ID"
+        echo "refs/remotes/branch-heads/${{ github.event.inputs.webrtcBranchId }}"
         git fetch
-        git checkout "refs/remotes/branch-heads/$INPUT_WEBRTC_BRANCH_ID"
+        git checkout "refs/remotes/branch-heads/${{ github.event.inputs.webrtcBranchId }}"
         gclient sync -D --with_branch_heads --with_tags 
 
 
@@ -88,7 +88,7 @@ jobs:
     - name: Upload a Build Artifact library
       uses: actions/upload-artifact@v2.2.4
       with:
-        name: libwebrtc-$INPUT_WEBRTC_BRANCH_ID.aar
+        name: "libwebrtc-${{ github.event.inputs.webrtcBranchId }}.aar"
         path:
           ./webrtc_checkout/src/libwebrtc.aar
 
