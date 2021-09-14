@@ -55,7 +55,7 @@ jobs:
 
     - name: Get necessary tools
       run: |
-        sudo apt update
+        sudo aptitude update
         sudo apt-get clean
         sudo apt-mark unhold $(apt-mark showhold)        
         sudo aptitude -y install g++-arm-linux-gnueabihf gcc-multilib
