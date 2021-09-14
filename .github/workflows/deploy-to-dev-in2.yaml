@@ -1,22 +1,12 @@
-name: Deploy to dev-in2
+name: Build webrtc for android
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - development
-      - ravi-test
-    paths-ignore:
-      - 'kube/values.yaml'
-      - 'client/*'
-      - 'scripts/*'
-      - 'config/*'
-      - 'proto/*'
-      - '.dockerignore'
-      - '.gitignore'
-      - 'docker-compose.yml'
-      - 'LICENSE'
-      - 'README.md'
-  
+    inputs:
+      WEBRTC_BRANCH_ID:
+        description: 'The branch id to build. This should be in release notes such as: https://groups.google.com/g/discuss-webrtc/c/ws0_MYHIBOw/m/HZGn07uIAwAJ'
+        required: true
+        default: '4577'
+
 jobs:
   deploy:
     name: Deploy
@@ -32,10 +22,13 @@ jobs:
       GCP_NAMESPACE: ion2
       GCP_CLUSTER: dev-in2
       DOCKER_GIT_TOKEN: ${{ secrets.DOCKER_GIT_TOKEN }}
-      WEBRTC_BRANCH_ID: 4577
       
     steps:
-
+    - name: Confirm inputs
+      run : |
+        echo $INPUT_WEBRTC_BRANCH_ID
+        echo "refs/remotes/branch-heads/$INPUT_WEBRTC_BRANCH_ID"
+        
     - name: set environment optimistically
       run: |
         echo "$(pwd)/webrtc_checkout/src/third_party/android_sdk/public/platform-tools" >> $GITHUB_PATH
@@ -73,9 +66,9 @@ jobs:
       id: checkout_release_branch
       working-directory: ./webrtc_checkout/src
       run: |
-        echo "refs/remotes/branch-heads/$WEBRTC_BRANCH_ID"
+        echo "refs/remotes/branch-heads/$INPUT_WEBRTC_BRANCH_ID"
         git fetch
-        git checkout "refs/remotes/branch-heads/$WEBRTC_BRANCH_ID"
+        git checkout "refs/remotes/branch-heads/$INPUT_WEBRTC_BRANCH_ID"
         gclient sync -D --with_branch_heads --with_tags 
 
 
