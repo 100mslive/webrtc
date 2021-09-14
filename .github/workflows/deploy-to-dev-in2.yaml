@@ -75,7 +75,7 @@ jobs:
         git fetch
         git checkout refs/remotes/branch-heads/4515
         gclient sync --with_branch_heads --with_tags 
-        ./build/install-build-deps.sh        
+        ./build/install-build-deps.sh --no-prompt
 
     - name: build
       id: build
