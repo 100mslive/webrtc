@@ -55,7 +55,10 @@ jobs:
 
     - name: Get necessary tools
       run: |
-        sudo apt-get -y install g++-arm-linux-gnueabihf gcc-multilib
+        sudo apt update
+        sudo apt-get clean
+        sudo apt-mark unhold $(apt-mark showhold)        
+        sudo aptitude -y install g++-arm-linux-gnueabihf gcc-multilib
 
 #     - name: clone 
 #       id: clone
