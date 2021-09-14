@@ -88,12 +88,14 @@ jobs:
     - name: Upload a Build Artifact library
       uses: actions/upload-artifact@v2.2.4
       with:
+        name: libwebrtc-$INPUT_WEBRTC_BRANCH_ID.aar
         path:
           ./webrtc_checkout/src/libwebrtc.aar
 
     - name: Upload a Build Artifact licence
       uses: actions/upload-artifact@v2.2.4
       with:
+        name: LICENSE.md
         path:
           ./webrtc_checkout/src/LICENSE.md
 
