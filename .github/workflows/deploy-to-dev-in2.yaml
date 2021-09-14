@@ -32,6 +32,7 @@ jobs:
       GCP_NAMESPACE: ion2
       GCP_CLUSTER: dev-in2
       DOCKER_GIT_TOKEN: ${{ secrets.DOCKER_GIT_TOKEN }}
+      WEBRTC_BRANCH_ID: 4577
       
     steps:
 
@@ -73,7 +74,7 @@ jobs:
       working-directory: ./webrtc_checkout/src
       run: |
         git fetch
-        git checkout refs/remotes/branch-heads/4515
+        git checkout "refs/remotes/branch-heads/$WEBRTC_BRANCH_ID"
         gclient sync --with_branch_heads --with_tags 
         ./build/install-build-deps.sh --no-prompt
 
@@ -81,9 +82,7 @@ jobs:
       id: build
       working-directory: ./webrtc_checkout/src
       run: |
-        python3 ./tools_webrtc/android/build_aar.py || exit 0
-        ls -alR
-        ls -alR $INITIAL_RUN_DIRECTORY
+        python3 ./tools_webrtc/android/build_aar.py
 
     - name: Upload a Build Artifact library
       uses: actions/upload-artifact@v2.2.4
@@ -95,7 +94,7 @@ jobs:
       uses: actions/upload-artifact@v2.2.4
       with:
         path:
-          ./webrtc_checkout/src/LICENCE.md
+          ./webrtc_checkout/src/LICENSE.md
 
 #    - uses: colpal/actions-clean@v1
 #      if: ${{ always() }} 
