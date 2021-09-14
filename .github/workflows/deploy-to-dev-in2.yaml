@@ -58,7 +58,6 @@ jobs:
         sudo apt-get install aptitude -y
         sudo apt-get update
         sudo apt-get clean
-        sudo apt-mark unhold $(apt-mark showhold)        
         sudo aptitude -y install g++-arm-linux-gnueabihf gcc-multilib
 
 #     - name: clone 
