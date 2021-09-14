@@ -2,8 +2,8 @@ name: Build webrtc for android
 on:
   workflow_dispatch:
     inputs:
-      WEBRTC_BRANCH_ID:
-        description: 'The branch id to build. This should be in release notes such as: https://groups.google.com/g/discuss-webrtc/c/ws0_MYHIBOw/m/HZGn07uIAwAJ'
+      webrtcBranchId:
+        description: 'The branch id to build. This should be in the release notes for webrtc.'
         required: true
         default: '4577'
 
@@ -26,8 +26,8 @@ jobs:
     steps:
     - name: Confirm inputs
       run : |
-        echo $INPUT_WEBRTC_BRANCH_ID
-        echo "refs/remotes/branch-heads/$INPUT_WEBRTC_BRANCH_ID"
+        echo $INPUT_WEBRTCBRANCHID
+        echo "refs/remotes/branch-heads/$INPUT_WEBRTCBRANCHID"
         
     - name: set environment optimistically
       run: |
