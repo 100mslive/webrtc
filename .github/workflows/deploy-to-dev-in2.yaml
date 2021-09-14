@@ -53,6 +53,10 @@ jobs:
         df -kh
         echo "$(pwd)/depot_tools" >> $GITHUB_PATH
 
+    - name: Get necessary tools
+      run: |
+        sudo apt-get -y install g++-arm-linux-gnueabihf
+
 #     - name: clone 
 #       id: clone
 #       working-directory: ./webrtc_checkout
