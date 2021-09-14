@@ -55,7 +55,7 @@ jobs:
 
     - name: Get necessary tools
       run: |
-        sudo apt-get install aptitude
+        sudo apt-get install aptitude -y
         sudo apt-get update
         sudo apt-get clean
         sudo apt-mark unhold $(apt-mark showhold)        
