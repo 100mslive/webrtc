@@ -35,3 +35,10 @@ dependencies {
 
 Look up the version from the tag above or here:
 https://jitpack.io/#100mslive/webrtc#Releases
+
+
+# Repository licence
+The license of the repository is in LICENCE
+
+# Webrtc licence
+The webrtc licence is in LICENCE.md

@@ -13,7 +13,7 @@ plugins {
 }
 
 group = "com.github.100mslive"
-version = "m92-4515"
+version = "m93-4577"
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -30,13 +30,13 @@ publishing {
         create<MavenPublication>("release") {
             groupId = "com.github.100mslive"
             artifactId = "webrtc"
-            version = "m92-4515"
+            version = "m93-4577"
 
             artifact("../libwebrtc.aar")
     
             pom {
                 name.set("WebRTC")
-                description.set("A packaging of the webrtc library. Branch-heads/4515")
+                description.set("A packaging of the webrtc library. Branch heads 4577")
                 url.set("https://webrtc.github.io/webrtc-org/native-code/android/")
                 licenses {
                     license {
