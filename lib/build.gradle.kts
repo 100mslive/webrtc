@@ -13,7 +13,7 @@ plugins {
 }
 
 group = "com.github.100mslive"
-version = "m93-4577"
+version = "m94-4606"
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -30,7 +30,7 @@ publishing {
         create<MavenPublication>("release") {
             groupId = "com.github.100mslive"
             artifactId = "webrtc"
-            version = "m93-4577"
+            version = "m94-4606"
 
             artifact("../libwebrtc.aar")
     
