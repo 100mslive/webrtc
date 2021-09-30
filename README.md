@@ -2,9 +2,9 @@
 Just a holding repo for the artefacts of webrtc builds.
 
 Why's the version name so long? It's taken from [call/versions.cc](https://chromium.googlesource.com/external/webrtc/+/refs/heads/master/call/version.cc#16) in the WebRTC source. They version by date.
+Release versions are named after their [release name m94]-[branch name] for example m94-4606, the branch is the one corresponding to the one for the particular release as seen in chrome release notes for [example](https://groups.google.com/g/discuss-webrtc/c/tFyWdqW2sQM).
 
-The artefacts are built from https://webrtc.github.io/webrtc-org/native-code/android/ and named according to their versions in the format
-libwebrtc-{platform}-{version}.aar
+The artefacts are built from https://webrtc.github.io/webrtc-org/native-code/android/.
 
 The current version of the webrtc project can be seen [here](https://webrtc.googlesource.com/src/+/refs/heads/main/call/version.cc#16).
 
@@ -28,7 +28,7 @@ And then add the dependency:
 ```gradle
 
 dependencies {
-	        implementation 'com.github.100mslive:webrtc:Tag'
+	        implementation 'com.github.100mslive:webrtc:m94-4606'
 	}
 
 ```
