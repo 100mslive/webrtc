@@ -1,5 +1,43 @@
+buildscript {
+    dependencies {
+                classpath "io.github.gradle-nexus:publish-plugin:1.1.0"
+        }
+
+	repositories {
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+}
+
+plugins {
+    id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
+}
+
 allprojects {
-		repositories {
-			maven { url 'https://jitpack.io' }
-		}
+	repositories {
+		maven { url 'https://jitpack.io' }
 	}
+}
+
+nexusPublishing {
+    packageGroup = "io.github.100mslive"
+    repositories {
+        sonatype {
+            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+            username = project.property("osshrhUsername")
+            password = project.property("ossrhPassword")
+        }
+    }
+    // Repository transitions seems, at times, to be really slow.
+    // This sets the timeout to 20 minutes
+    transitionCheckOptions {
+        maxRetries.set(120)
+        delayBetween.set(java.time.Duration.ofMillis(10000))
+    }
+}
+
+
+
