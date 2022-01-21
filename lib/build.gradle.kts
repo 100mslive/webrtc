@@ -98,15 +98,15 @@ publishing {
                 }
                 developers {
                         developer {
-                            id = '1'
-                            name = 'https://webrtc.org/'
-                            email = 'discuss-webrtc@googlegroups.com'
+                            id.set("1")
+                            name.set("https://webrtc.org/")
+                            email.set("discuss-webrtc@googlegroups.com")
                         }
                     }
                     scm {
-                        connection = 'SCM can be found at https://webrtc.github.io/webrtc-org/native-code/development/prerequisite-sw/'
-                        developerConnection = 'SCM can be found at https://webrtc.github.io/webrtc-org/native-code/development/prerequisite-sw/'
-                        url = 'https://webrtc.github.io/webrtc-org/native-code/development/prerequisite-sw/'
+                        connection.set("SCM can be found at https://webrtc.github.io/webrtc-org/native-code/development/prerequisite-sw/")
+                        developerConnection.set("SCM can be found at https://webrtc.github.io/webrtc-org/native-code/development/prerequisite-sw/")
+                        url.set("https://webrtc.github.io/webrtc-org/native-code/development/prerequisite-sw/")
                     }
 
             }
