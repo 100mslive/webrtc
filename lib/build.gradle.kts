@@ -34,7 +34,7 @@ tasks.register("generateFakeSources") {
             fakeSourceReadme.createNewFile()
         }
 
-        fakeSourceReadme.writeText("Sources are available at: https://webrtc.googlesource.com/")
+        fakeSourceReadme.writeText("Sources are available at: https://webrtc.googlesource.com/src")
     }
 }
 
@@ -96,6 +96,18 @@ publishing {
                         url.set("https://webrtc.github.io/webrtc-org/license/")
                     }
                 }
+                developers {
+                        developer {
+                            id = '1'
+                            name = 'https://webrtc.org/'
+                            email = 'discuss-webrtc@googlegroups.com'
+                        }
+                    }
+                    scm {
+                        connection = 'SCM can be found at https://webrtc.github.io/webrtc-org/native-code/development/prerequisite-sw/'
+                        developerConnection = 'SCM can be found at https://webrtc.github.io/webrtc-org/native-code/development/prerequisite-sw/'
+                        url = 'https://webrtc.github.io/webrtc-org/native-code/development/prerequisite-sw/'
+                    }
 
             }
         }
