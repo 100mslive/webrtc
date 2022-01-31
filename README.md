@@ -28,7 +28,7 @@ And then add the dependency:
 ```gradle
 
 dependencies {
-	        implementation 'com.github.100mslive:webrtc:m94-4606'
+	        implementation 'com.github.100mslive:webrtc:m97'
 	}
 
 ```

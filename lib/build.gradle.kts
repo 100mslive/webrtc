@@ -73,7 +73,7 @@ publishing {
         create<MavenPublication>("release") {
             groupId = "io.github.100mslive"
             artifactId = "webrtc"
-            version = "m94-4606"
+            version = "m97"
 
             artifact("../libwebrtc.aar")
             artifact(tasks["fakeSources"])
