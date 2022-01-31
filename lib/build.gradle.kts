@@ -76,6 +76,7 @@ publishing {
             version = "m97"
 
             artifact("../libwebrtc.aar")
+/*
             artifact(tasks["fakeSources"])
             artifact(tasks["fakeJavadoc"])
 
@@ -85,7 +86,7 @@ publishing {
                 sign(publishing.publications["release"])
                 sign(configurations.archives.get())
             }
-
+*/
             pom {
                 name.set("WebRTC")
                 description.set("A packaging of the webrtc library. Branch heads 4577")
