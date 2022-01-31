@@ -27,8 +27,8 @@ nexusPublishing {
         sonatype {
             nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
             snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
-            username = if(project.hasProperty("osshrhUsername") ? project.property("osshrhUsername") : "None"
-            password = if(project.hasProperty("ossrhPassword") ? project.property("ossrhPassword") : "None"
+            username = project.hasProperty("osshrhUsername") ? project.property("osshrhUsername") : "None"
+            password = project.hasProperty("ossrhPassword") ? project.property("ossrhPassword") : "None"
         }
     }
     // Repository transitions seems, at times, to be really slow.
