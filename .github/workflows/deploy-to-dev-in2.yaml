@@ -63,6 +63,15 @@ jobs:
 #         ls -al
 #         gclient sync --with_branch_heads --with_tags
 
+
+    - name: show patches
+      id: show_patches
+      run: |
+        echo "We are at"
+        pwd
+        echo "Printing files"
+        ls 
+
     - name: checkout release branch
       id: checkout_release_branch
       working-directory: ./webrtc_checkout/src
@@ -83,9 +92,7 @@ jobs:
       id: install_patches
       working-directory: ./webrtc_checkout/src/
       run: |
-        ls
-        ls ../
-        ls ../../
+        git apply ../../patches/*
 
     - name: build
       id: build
