@@ -88,7 +88,7 @@ jobs:
       id: install_patches
       working-directory: ./webrtc_checkout/src/
       run: |
-        if [[ -z "${{ github.event.inputs.raw_patch_url }}" ]]; then wget "${{ github.event.inputs.raw_patch_url }}" -O 100ms_patches.diff && git apply 100ms_patches.diff ; fi
+        if [[ -z "${{ github.event.inputs.raw_patch_url }}" ]]; then wget "${{ github.event.inputs.raw_patch_url }}" -O 100ms_patches.diff && git apply 100ms_patches.diff && git diff ; fi
 
     - name: build
       id: build
