@@ -1,5 +1,5 @@
 diff --git a/sdk/android/api/org/webrtc/audio/JavaAudioDeviceModule.java b/sdk/android/api/org/webrtc/audio/JavaAudioDeviceModule.java
-index ae5858a704..3f6cef149e 100644
+index ae5858a704..63435dd7fd 100644
 --- a/sdk/android/api/org/webrtc/audio/JavaAudioDeviceModule.java
 +++ b/sdk/android/api/org/webrtc/audio/JavaAudioDeviceModule.java
 @@ -32,9 +32,9 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
@@ -14,7 +14,27 @@ index ae5858a704..3f6cef149e 100644
      private int inputSampleRate;
      private int outputSampleRate;
      private int audioSource = WebRtcAudioRecord.DEFAULT_AUDIO_SOURCE;
-@@ -363,7 +363,22 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
+@@ -351,19 +351,34 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
+     return WebRtcAudioEffects.isNoiseSuppressorSupported();
+   }
+ 
+-  private final Context context;
+-  private final AudioManager audioManager;
+-  private final WebRtcAudioRecord audioInput;
+-  private final WebRtcAudioTrack audioOutput;
+-  private final int inputSampleRate;
+-  private final int outputSampleRate;
+-  private final boolean useStereoInput;
+-  private final boolean useStereoOutput;
++  private Context context;
++  private AudioManager audioManager;
++  private WebRtcAudioRecord audioInput;
++  private WebRtcAudioTrack audioOutput;
++  private int inputSampleRate;
++  private int outputSampleRate;
++  private boolean useStereoInput;
++  private boolean useStereoOutput;
+ 
    private final Object nativeLock = new Object();
    private long nativeAudioDeviceModule;
  
