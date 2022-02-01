@@ -1,0 +1,100 @@
+diff --git a/sdk/android/api/org/webrtc/audio/JavaAudioDeviceModule.java b/sdk/android/api/org/webrtc/audio/JavaAudioDeviceModule.java
+index ae5858a704..3f6cef149e 100644
+--- a/sdk/android/api/org/webrtc/audio/JavaAudioDeviceModule.java
++++ b/sdk/android/api/org/webrtc/audio/JavaAudioDeviceModule.java
+@@ -32,9 +32,9 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
+   }
+ 
+   public static class Builder {
+-    private final Context context;
++    private Context context;
+     private ScheduledExecutorService scheduler;
+-    private final AudioManager audioManager;
++    private AudioManager audioManager;
+     private int inputSampleRate;
+     private int outputSampleRate;
+     private int audioSource = WebRtcAudioRecord.DEFAULT_AUDIO_SOURCE;
+@@ -363,7 +363,22 @@ public class JavaAudioDeviceModule implements AudioDeviceModule {
+   private final Object nativeLock = new Object();
+   private long nativeAudioDeviceModule;
+ 
+-  private JavaAudioDeviceModule(Context context, AudioManager audioManager,
++  public JavaAudioDeviceModule() {}
++
++  public void setPreviousConstructorValues(Context context, AudioManager audioManager,
++      WebRtcAudioRecord audioInput, WebRtcAudioTrack audioOutput, int inputSampleRate,
++      int outputSampleRate, boolean useStereoInput, boolean useStereoOutput) {
++    this.context = context;
++    this.audioManager = audioManager;
++    this.audioInput = audioInput;
++    this.audioOutput = audioOutput;
++    this.inputSampleRate = inputSampleRate;
++    this.outputSampleRate = outputSampleRate;
++    this.useStereoInput = useStereoInput;
++    this.useStereoOutput = useStereoOutput;
++  }
++  
++  public JavaAudioDeviceModule(Context context, AudioManager audioManager,
+       WebRtcAudioRecord audioInput, WebRtcAudioTrack audioOutput, int inputSampleRate,
+       int outputSampleRate, boolean useStereoInput, boolean useStereoOutput) {
+     this.context = context;
+diff --git a/sdk/android/src/java/org/webrtc/audio/WebRtcAudioRecord.java b/sdk/android/src/java/org/webrtc/audio/WebRtcAudioRecord.java
+index 10fd58c36c..3970848c54 100644
+--- a/sdk/android/src/java/org/webrtc/audio/WebRtcAudioRecord.java
++++ b/sdk/android/src/java/org/webrtc/audio/WebRtcAudioRecord.java
+@@ -43,7 +43,7 @@ import org.webrtc.audio.JavaAudioDeviceModule.AudioRecordStartErrorCode;
+ import org.webrtc.audio.JavaAudioDeviceModule.AudioRecordStateCallback;
+ import org.webrtc.audio.JavaAudioDeviceModule.SamplesReadyCallback;
+ 
+-class WebRtcAudioRecord {
++public class WebRtcAudioRecord {
+   private static final String TAG = "WebRtcAudioRecordExternal";
+ 
+   // Requested size of each recorded buffer provided to the client.
+@@ -261,9 +261,8 @@ class WebRtcAudioRecord {
+     return effects.setNS(enable);
+   }
+ 
+-  @CalledByNative
+-  private int initRecording(int sampleRate, int channels) {
+-    Logging.d(TAG, "initRecording(sampleRate=" + sampleRate + ", channels=" + channels + ")");
++  public int initializeRecordingInternal(int sampleRate, int channels) {
++    Logging.d(TAG, "initializeRecording(sampleRate=" + sampleRate + ", channels=" + channels + ")");
+     if (audioRecord != null) {
+       reportWebRtcAudioRecordInitError("InitRecording called twice without StopRecording.");
+       return -1;
+@@ -342,6 +341,12 @@ class WebRtcAudioRecord {
+     return framesPerBuffer;
+   }
+ 
++  @CalledByNative
++  private int initRecording(int sampleRate, int channels) {
++    Logging.d(TAG, "initRecording(sampleRate=" + sampleRate + ", channels=" + channels + ")");
++    return initializeRecordingInternal(sampleRate, channels);
++  }
++
+   /**
+    * Prefer a specific {@link AudioDeviceInfo} device for recording. Calling after recording starts
+    * is valid but may cause a temporary interruption if the audio routing changes.
+diff --git a/sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java b/sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java
+index 885df55479..13df447af9 100644
+--- a/sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java
++++ b/sdk/android/src/java/org/webrtc/audio/WebRtcAudioTrack.java
+@@ -28,7 +28,7 @@ import org.webrtc.audio.JavaAudioDeviceModule.AudioTrackStartErrorCode;
+ import org.webrtc.audio.JavaAudioDeviceModule.AudioTrackStateCallback;
+ import org.webrtc.audio.LowLatencyAudioBufferManager;
+ 
+-class WebRtcAudioTrack {
++public class WebRtcAudioTrack {
+   private static final String TAG = "WebRtcAudioTrackExternal";
+ 
+   // Default audio data format is PCM 16 bit per sample.
+@@ -174,7 +174,7 @@ class WebRtcAudioTrack {
+         null /* stateCallback */, false /* useLowLatency */);
+   }
+ 
+-  WebRtcAudioTrack(Context context, AudioManager audioManager,
++  public WebRtcAudioTrack(Context context, AudioManager audioManager,
+       @Nullable AudioAttributes audioAttributes, @Nullable AudioTrackErrorCallback errorCallback,
+       @Nullable AudioTrackStateCallback stateCallback, boolean useLowLatency) {
+     threadChecker.detachThread();
