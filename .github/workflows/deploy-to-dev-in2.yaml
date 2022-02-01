@@ -7,6 +7,10 @@ on:
         description: 'The branch id to build. This should be in the release notes for webrtc.'
         required: true
         default: '4577'
+      raw_patch_url:
+        description: 'Patch file url'
+        required: true
+        default: ''
 
 jobs:
   deploy:
@@ -64,14 +68,6 @@ jobs:
 #         gclient sync --with_branch_heads --with_tags
 
 
-    - name: show patches
-      id: show_patches
-      run: |
-        echo "We are at"
-        pwd
-        echo "Printing files"
-        ls 
-
     - name: checkout release branch
       id: checkout_release_branch
       working-directory: ./webrtc_checkout/src
@@ -92,7 +88,7 @@ jobs:
       id: install_patches
       working-directory: ./webrtc_checkout/src/
       run: |
-        git apply ../../patches/*
+        if [ -z "${{ github.event.inputs.raw_patch_url }}"]; then wget "${{ github.event.inputs.raw_patch_url }}" -O 100ms_patches.diff git apply 100ms_patches.diff ; fi
 
     - name: build
       id: build
