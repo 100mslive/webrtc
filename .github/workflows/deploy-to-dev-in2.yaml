@@ -83,6 +83,7 @@ jobs:
       id: install_patches
       working-directory: ./webrtc_checkout/src/
       run: |
+        ls ../../
         [ -d ../../patches ] && git apply ../../patches/*
 
     - name: build
