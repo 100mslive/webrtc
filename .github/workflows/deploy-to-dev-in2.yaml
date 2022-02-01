@@ -79,6 +79,12 @@ jobs:
       run: |
         ./build/install-build-deps.sh --no-prompt
 
+    - name: install patches if present
+      id: install_patches
+      working-directory: ./webrtc_checkout/src/
+      run: |
+        [ -d ../../patches ] && git apply ../../patches/*
+
     - name: build
       id: build
       working-directory: ./webrtc_checkout/src
