@@ -7,10 +7,10 @@ on:
         description: 'The branch id to build. This should be in the release notes for webrtc.'
         required: true
         default: '4577'
-      raw_patch_url:
-        description: 'Patch file url'
-        required: true
-        default: ''
+      # raw_patch_url:
+      #   description: 'Patch file url'
+      #   required: true
+      #   default: ''
 
 jobs:
   deploy:
@@ -84,11 +84,11 @@ jobs:
       run: |
         ./build/install-build-deps.sh --no-prompt
 
-    - name: install patches if present
-      id: install_patches
-      working-directory: ./webrtc_checkout/src/
-      run: |
-        if [[ -z "${{ github.event.inputs.raw_patch_url }}" ]]; then echo "No patch found"; else wget "${{ github.event.inputs.raw_patch_url }}" -O 100ms_patches.diff && git apply 100ms_patches.diff --ignore-space-change && git diff ; fi
+    # - name: install patches if present
+    #   id: install_patches
+    #   working-directory: ./webrtc_checkout/src/
+    #   run: |
+    #     if [[ -z "${{ github.event.inputs.raw_patch_url }}" ]]; then echo "No patch found"; else wget "${{ github.event.inputs.raw_patch_url }}" -O 100ms_patches.diff && git apply 100ms_patches.diff --ignore-space-change && git diff ; fi
 
     - name: build
       id: build
