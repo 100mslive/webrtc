@@ -55,7 +55,6 @@ jobs:
 
     - name: get depot tools
       id: get-depot-tools
-      if: $(if [ ! -d "./depot_tools" ])
       run: |
         python3 -v 
         df -kh
