@@ -59,13 +59,13 @@ jobs:
         sudo apt-get clean
         sudo aptitude -y install g++-arm-linux-gnueabihf gcc-multilib
 
-#     - name: clone 
-#       id: clone
-#       working-directory: ./webrtc_checkout
-#       run: |
-#         fetch --nohooks webrtc_android
-#         ls -al
-#         gclient sync --with_branch_heads --with_tags
+    - name: clone 
+      id: clone
+      working-directory: ./webrtc_checkout
+      run: |
+        fetch --nohooks webrtc_android
+        ls -al
+        gclient sync --with_branch_heads --with_tags
 
 
     - name: checkout release branch
