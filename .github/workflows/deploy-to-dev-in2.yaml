@@ -6,7 +6,7 @@ on:
       webrtcBranchId:
         description: 'The branch id to build. This should be in the release notes for webrtc.'
         required: true
-        default: '4577'
+        default: '4692'
 
       localChangeBranchId:
           description: 'The branch with all the local changes. Make sure this is comptabile with the branch of webrtc with no conflicts.'
