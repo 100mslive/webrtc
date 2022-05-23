@@ -51,7 +51,6 @@ jobs:
         python3 -v 
         df -kh
         echo "$(pwd)/depot_tools" >> $GITHUB_PATH
-        echo $(whereis fetch)
 
     - name: Get necessary tools
       run: |
@@ -59,6 +58,10 @@ jobs:
         sudo apt-get update
         sudo apt-get clean
         sudo aptitude -y install g++-arm-linux-gnueabihf gcc-multilib
+
+    - name: List paths
+      run: |
+        echo $(whereis fetch)
 
     - name: Make necessary subfolders
       run:  |
@@ -68,9 +71,9 @@ jobs:
       id: clone
       working-directory: ./webrtc_checkout
       run: |
-        fetch --nohooks webrtc_android
+        ../depot_tools/fetch --nohooks webrtc_android
         ls -al
-        gclient sync --with_branch_heads --with_tags
+        ../depot_tools/gclient sync --with_branch_heads --with_tags
 
 
     - name: checkout release branch
