@@ -7,10 +7,10 @@ on:
         description: 'The branch id to build. This should be in the release notes for webrtc.'
         required: true
         default: '4577'
-      # raw_patch_url:
-      #   description: 'Patch file url'
-      #   required: true
-      #   default: ''
+
+      localChangeBranchId:
+          description: 'The branch with all the local changes. Make sure this is comptabile with the branch of webrtc with no conflicts.'
+          required: false
 
 jobs:
   deploy:
@@ -73,10 +73,18 @@ jobs:
       working-directory: ./webrtc_checkout/src
       run: |
         echo "refs/remotes/branch-heads/${{ github.event.inputs.webrtcBranchId }}"
-        git fetch
+        git fetch --all
         git checkout "refs/remotes/branch-heads/${{ github.event.inputs.webrtcBranchId }}"
         gclient sync -D --with_branch_heads --with_tags 
 
+    - name: Checkout 100ms change branch on top
+      id: checkout_100ms_change_branch
+      if: ${{ github.event.inputs.localChangeBranchId }}
+      working-directory: ./webrtc_checkout/src
+      run: |
+        if ! test $(git config remote.100ms.url); then echo "100ms remote did not exist" && git remote add 100ms git@github.com:100mslive/webrtc-fork.git; fi
+        git fetch --all
+        git checkout ${{ github.event.inputs.localChangeBranchId }}
 
     - name: install dependencies
       id: install_dependencies
