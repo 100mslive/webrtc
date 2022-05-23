@@ -59,6 +59,10 @@ jobs:
         sudo apt-get clean
         sudo aptitude -y install g++-arm-linux-gnueabihf gcc-multilib
 
+    - name: Make necessary subfolders
+      run:  |
+        mkdir ./webrtc_checkout
+
     - name: clone 
       id: clone
       working-directory: ./webrtc_checkout
