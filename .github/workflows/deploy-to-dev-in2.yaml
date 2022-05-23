@@ -55,6 +55,7 @@ jobs:
 
     - name: get depot tools
       id: get-depot-tools
+      continue-on-error: true
       run: |
         python3 -v 
         df -kh
