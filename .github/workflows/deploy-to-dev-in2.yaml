@@ -60,8 +60,6 @@ jobs:
         sudo apt-get clean
         sudo aptitude -y install g++-arm-linux-gnueabihf gcc-multilib
 
-    - name: List results
-
     - name: List paths
       run: |
         echo $(whereis fetch)
