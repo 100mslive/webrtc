@@ -6,7 +6,7 @@ on:
       webrtcBranchId:
         description: 'The branch id to build. This should be in the release notes for webrtc.'
         required: true
-        default: '4577'
+        default: '4692'
 
       localChangeBranchId:
           description: 'The branch with all the local changes. Make sure this is comptabile with the branch of webrtc with no conflicts.'
@@ -15,7 +15,7 @@ on:
 jobs:
   deploy:
     name: Deploy
-    runs-on: self-hosted
+    runs-on: ubuntu-18.04
 
     env:
       ENV: dev
@@ -45,11 +45,25 @@ jobs:
         echo $ANDROID_HOME
         echo "$INITIAL_RUN_DIRECTORY"
 
+    - name: Cache depot tools and source
+      uses: actions/cache@v3
+      with:
+        path: |
+          ./depot_tools
+          ./webrtc_checkout
+        key: static
+
     - name: get depot tools
       id: get-depot-tools
+      continue-on-error: true
       run: |
         python3 -v 
         df -kh
+        git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+
+    - name: Add depot tools to path
+      id: add-depot-tools-to-path
+      run: |
         echo "$(pwd)/depot_tools" >> $GITHUB_PATH
 
     - name: Get necessary tools
@@ -58,14 +72,24 @@ jobs:
         sudo apt-get update
         sudo apt-get clean
         sudo aptitude -y install g++-arm-linux-gnueabihf gcc-multilib
+        sudo aptitude -y install python3-pip
+        pip3 install dataclasses
 
-#     - name: clone 
-#       id: clone
-#       working-directory: ./webrtc_checkout
-#       run: |
-#         fetch --nohooks webrtc_android
-#         ls -al
-#         gclient sync --with_branch_heads --with_tags
+    - name: List paths
+      run: |
+        echo $(whereis fetch)
+
+    - name: Make necessary subfolders
+      run:  |
+        mkdir ./webrtc_checkout
+
+    - name: clone 
+      id: clone
+      working-directory: ./webrtc_checkout
+      run: |
+        fetch --nohooks webrtc_android
+        ls -al
+        gclient sync --with_branch_heads --with_tags
 
 
     - name: checkout release branch
