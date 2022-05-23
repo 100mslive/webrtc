@@ -72,6 +72,8 @@ jobs:
         sudo apt-get update
         sudo apt-get clean
         sudo aptitude -y install g++-arm-linux-gnueabihf gcc-multilib
+        sudo aptitude -y install python3-pip
+        pip3 install dataclasses
 
     - name: List paths
       run: |
