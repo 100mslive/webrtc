@@ -82,7 +82,7 @@ jobs:
       if: ${{ github.event.inputs.localChangeBranchId }}
       working-directory: ./webrtc_checkout/src
       run: |
-        if ! test $(git config remote.100ms.url); then echo "100ms remote did not exist" && git remote add 100ms git@github.com:100mslive/webrtc-fork.git; fi
+        if ! test $(git config remote.100ms.url); then echo "100ms remote did not exist" && git remote add 100ms https://${{ secrets.WEBRTC_PAT_TOKEN }}:x-oauth-basic@github.com/100mslive/webrtc-fork.git; fi
         git fetch --all
         git checkout ${{ github.event.inputs.localChangeBranchId }}
 
