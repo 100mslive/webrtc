@@ -73,7 +73,7 @@ publishing {
         create<MavenPublication>("release") {
             groupId = "io.github.100mslive"
             artifactId = "webrtc"
-            version = "m97-hms-1.0"
+            version = "m97-hms-1.1"
 
             artifact("../libwebrtc.aar")
 /*
