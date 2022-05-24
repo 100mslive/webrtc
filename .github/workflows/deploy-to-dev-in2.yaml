@@ -9,8 +9,8 @@ on:
         default: '4692'
 
       localChangeBranchId:
-          description: 'The branch with all the local changes. Make sure this is comptabile with the branch of webrtc with no conflicts.'
-          required: false
+        description: 'The branch with all the 100ms changes. Make sure this is comptabile with the branch of webrtc with no conflicts. Also prefix with 100ms/ so pratim-audio-changes would be 100ms/pratim-audio-changes'
+        required: false
 
 jobs:
   deploy:
@@ -45,13 +45,14 @@ jobs:
         echo $ANDROID_HOME
         echo "$INITIAL_RUN_DIRECTORY"
 
-    - name: Cache depot tools and source
-      uses: actions/cache@v3
-      with:
-        path: |
-          ./depot_tools
-          ./webrtc_checkout
-        key: static
+# No point of caching, it's way over the 10Gb Github cache limit
+    # - name: Cache depot tools and source
+    #   uses: actions/cache@v3
+    #   with:
+    #     path: |
+    #       ./depot_tools
+    #       ./webrtc_checkout
+    #     key: static
 
     - name: get depot tools
       id: get-depot-tools
@@ -75,10 +76,6 @@ jobs:
         sudo aptitude -y install python3-pip
         pip3 install dataclasses
 
-    - name: List paths
-      run: |
-        echo $(whereis fetch)
-
     - name: Make necessary subfolders
       run:  |
         mkdir ./webrtc_checkout
@@ -88,7 +85,6 @@ jobs:
       working-directory: ./webrtc_checkout
       run: |
         fetch --nohooks webrtc_android
-        ls -al
         gclient sync --with_branch_heads --with_tags
 
 
@@ -96,7 +92,6 @@ jobs:
       id: checkout_release_branch
       working-directory: ./webrtc_checkout/src
       run: |
-        echo "refs/remotes/branch-heads/${{ github.event.inputs.webrtcBranchId }}"
         git fetch --all
         git checkout "refs/remotes/branch-heads/${{ github.event.inputs.webrtcBranchId }}"
         gclient sync -D --with_branch_heads --with_tags 
@@ -115,12 +110,6 @@ jobs:
       working-directory: ./webrtc_checkout/src
       run: |
         ./build/install-build-deps.sh --no-prompt
-
-    # - name: install patches if present
-    #   id: install_patches
-    #   working-directory: ./webrtc_checkout/src/
-    #   run: |
-    #     if [[ -z "${{ github.event.inputs.raw_patch_url }}" ]]; then echo "No patch found"; else wget "${{ github.event.inputs.raw_patch_url }}" -O 100ms_patches.diff && git apply 100ms_patches.diff --ignore-space-change && git diff ; fi
 
     - name: build
       id: build
@@ -141,6 +130,3 @@ jobs:
         name: LICENSE.md
         path:
           ./webrtc_checkout/src/LICENSE.md
-
-#    - uses: colpal/actions-clean@v1
-#      if: ${{ always() }} 
