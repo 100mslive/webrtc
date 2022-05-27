@@ -87,24 +87,13 @@ jobs:
 
     - name: clone 
       id: clone
-      if: false # Remove this
       working-directory: ./webrtc_checkout
       run: |
         fetch --nohooks webrtc_android
         gclient sync --with_branch_heads --with_tags
 
-    # Remove this entire step
-    - name: test
-      id: test-2
-      working-directory: ./webrtc_checkout
-      run: |
-        mkdir src
-        cd src
-        git init .
-
     - name: checkout release branch
       id: checkout_release_branch
-      if: false # Remove this
       working-directory: ./webrtc_checkout/src
       run: |
         git fetch --all
