@@ -12,6 +12,11 @@ on:
         description: 'The branch with all the 100ms changes. Make sure this is comptabile with the branch of webrtc with no conflicts. Also prefix with 100ms/ so pratim-audio-changes would be 100ms/pratim-audio-changes'
         required: false
 
+      size_reduced_build:
+          description: 'Whether to build with size reduced options.'
+          required: true
+          default: 'false'
+
 jobs:
   deploy:
     name: Deploy
@@ -87,7 +92,6 @@ jobs:
         fetch --nohooks webrtc_android
         gclient sync --with_branch_heads --with_tags
 
-
     - name: checkout release branch
       id: checkout_release_branch
       working-directory: ./webrtc_checkout/src
@@ -105,6 +109,13 @@ jobs:
         git fetch --all
         git checkout ${{ github.event.inputs.localChangeBranchId }}
 
+    - name: Apply size reductions if requested
+      id: apply_size_reductions_if_requested
+      if: ( ${{ github.event.inputs.size_reduced_build }} )
+      working-directory: ./webrtc_checkout/src
+      run: |
+        git merge 100ms/AN-327-reducing-the-size-of-the-webrtc-library
+
     - name: install dependencies
       id: install_dependencies
       working-directory: ./webrtc_checkout/src
@@ -115,7 +126,7 @@ jobs:
       id: build
       working-directory: ./webrtc_checkout/src
       run: |
-        python3 ./tools_webrtc/android/build_aar.py
+        if test ${{ github.event.inputs.size_reduced_build }} != "true";then python3 ./tools_webrtc/android/build_aar.py --extra-gn-args='strip_debug_info=true symbol_level=0 is_debug=false exclude_unwind_tables=true enable_stripping=true rtc_include_tests=false enable_iterator_debugging=false rtc_exclude_transient_suppressor=true rtc_libvpx_build_vp9=false rtc_enable_symbol_export=false rtc_enable_external_auth=false rtc_disable_logging=true rtc_disable_trace_events=true rtc_disable_metrics=true rtc_build_json=false rtc_enable_objc_symbol_export=false rtc_dlog_always_on=false' ; else python3 ./tools_webrtc/android/build_aar.py ; fi
 
     - name: Upload a Build Artifact library
       uses: actions/upload-artifact@v2.2.4
