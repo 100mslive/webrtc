@@ -125,7 +125,7 @@ jobs:
       if: ( ${{ github.event.inputs.size_reduced_build }} )
       working-directory: ./webrtc_checkout/src
       run: |
-        git -c "user.name=Github Action webrtc" -c "user.email=aniket.kadam+webrtcgithubaction@100ms.live" merge --no-commit --ff-only 100ms/AN-327-reducing-the-size-of-the-webrtc-library
+        git -c "user.name=Github Action webrtc" -c "user.email=aniket.kadam+webrtcgithubaction@100ms.live" merge --no-commit 100ms/AN-327-reducing-the-size-of-the-webrtc-library
 
     - name: install dependencies
       id: install_dependencies
