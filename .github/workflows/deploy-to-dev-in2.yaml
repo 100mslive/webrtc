@@ -13,9 +13,9 @@ on:
         required: false
 
       size_reduced_build:
-          description: 'Whether to build with size reduced options.'
-          required: true
-          default: 'false'
+        type: boolean
+        description: 'Whether to build with size reduced options.'
+        required: true
 
 jobs:
   deploy:
@@ -126,7 +126,7 @@ jobs:
       id: build
       working-directory: ./webrtc_checkout/src
       run: |
-        if test ${{ github.event.inputs.size_reduced_build }} != "true";then python3 ./tools_webrtc/android/build_aar.py --extra-gn-args='strip_debug_info=true symbol_level=0 is_debug=false exclude_unwind_tables=true enable_stripping=true rtc_include_tests=false enable_iterator_debugging=false rtc_exclude_transient_suppressor=true rtc_libvpx_build_vp9=false rtc_enable_symbol_export=false rtc_enable_external_auth=false rtc_disable_logging=true rtc_disable_trace_events=true rtc_disable_metrics=true rtc_build_json=false rtc_enable_objc_symbol_export=false rtc_dlog_always_on=false' ; else python3 ./tools_webrtc/android/build_aar.py ; fi
+        if test ${{ github.event.inputs.size_reduced_build }} != true ;then python3 ./tools_webrtc/android/build_aar.py --extra-gn-args='strip_debug_info=true symbol_level=0 is_debug=false exclude_unwind_tables=true enable_stripping=true rtc_include_tests=false enable_iterator_debugging=false rtc_exclude_transient_suppressor=true rtc_libvpx_build_vp9=false rtc_enable_symbol_export=false rtc_enable_external_auth=false rtc_disable_logging=true rtc_disable_trace_events=true rtc_disable_metrics=true rtc_build_json=false rtc_enable_objc_symbol_export=false rtc_dlog_always_on=false' ; else python3 ./tools_webrtc/android/build_aar.py ; fi
 
     - name: Upload a Build Artifact library
       uses: actions/upload-artifact@v2.2.4
