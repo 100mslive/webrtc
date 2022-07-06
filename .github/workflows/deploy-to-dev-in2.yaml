@@ -13,8 +13,8 @@ on:
         required: false
 
       size_reduced_build:
-        type: boolean
         description: 'Whether to build with size reduced options.'
+        type: boolean
         required: true
 
 jobs:
